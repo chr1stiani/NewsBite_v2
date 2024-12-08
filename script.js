@@ -238,20 +238,23 @@ document.addEventListener('DOMContentLoaded', () => {
             // Success animation
             loginSubmit.innerHTML = '<i class="fas fa-check"></i>';
             
+            // Store credentials in sessionStorage
+            sessionStorage.setItem('loggedIn', 'true');
+            sessionStorage.setItem('username', username.value);
+            
             // Fade out modal smoothly
             loginModal.classList.remove('active');
             
+            // Wait for animation and then redirect
             await new Promise(resolve => setTimeout(resolve, 400));
-            sessionStorage.setItem('loggedIn', 'true');
-            window.location.href = 'dashboard.html';
+            window.location.href = './dashboard.html'; // Make sure path is correct
         } else {
-            // Error animation
+            // Error handling remains the same
             loginSubmit.innerHTML = 'Login';
             loginSubmit.disabled = false;
             errorMessage.style.display = 'block';
             errorMessage.style.animation = 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both';
             
-            // Shake animation for inputs
             [username, password].forEach(input => {
                 input.style.animation = 'shake 0.5s cubic-bezier(.36,.07,.19,.97) both';
                 input.addEventListener('animationend', () => {
@@ -259,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
             
-            // Auto-hide error after 3 seconds
             setTimeout(() => {
                 errorMessage.style.display = 'none';
             }, 3000);

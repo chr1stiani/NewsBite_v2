@@ -1,8 +1,18 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Check if user is logged in
     if (!sessionStorage.getItem('loggedIn')) {
-        window.location.href = 'index.html';
+        window.location.href = './index.html';
+        return;
     }
+
+    // Set username in welcome screen
+    const username = sessionStorage.getItem('username');
+    document.querySelector('.welcome-content .username').textContent = username;
+
+    // Handle welcome screen animation
+    setTimeout(() => {
+        document.querySelector('.welcome-overlay').classList.add('fade-out');
+    }, 2000);
 
     // Initialize PIXI.js background
     const app = new PIXI.Application({
@@ -137,13 +147,21 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Handle logout
-    document.getElementById('logoutBtn').addEventListener('click', async () => {
-        // Fade out animation
-        document.querySelector('.dashboard-container').style.opacity = '0';
-        document.querySelector('.dashboard-container').style.transform = 'translateY(20px)';
+    document.getElementById('logoutBtn').addEventListener('click', async (e) => {
+        e.preventDefault();
         
+        // Add fade-out animation to dashboard
+        document.querySelector('.dashboard-layout').style.opacity = '0';
+        document.querySelector('.dashboard-layout').style.transform = 'translateY(20px)';
+        
+        // Wait for animation
         await new Promise(resolve => setTimeout(resolve, 400));
+        
+        // Clear session storage
         sessionStorage.removeItem('loggedIn');
+        sessionStorage.removeItem('username');
+        
+        // Redirect to home page
         window.location.href = 'index.html';
     });
 }); 

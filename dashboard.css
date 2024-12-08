@@ -5,6 +5,9 @@
     min-height: 100vh;
     background: linear-gradient(135deg, rgba(0, 13, 25, 0.95), rgba(0, 0, 0, 0.95));
     padding-left: 280px;
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
 /* Sidebar */
@@ -268,5 +271,53 @@
     }
     100% {
         background-position: 0% 50%;
+    }
+}
+
+.welcome-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--background-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 1;
+    transition: opacity 0.8s ease-out;
+}
+
+.welcome-overlay.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.welcome-content {
+    text-align: center;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: welcomeFadeIn 0.8s ease-out forwards;
+}
+
+.welcome-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(120deg, #ffffff, #88ccff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.welcome-content p {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.2rem;
+}
+
+@keyframes welcomeFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
