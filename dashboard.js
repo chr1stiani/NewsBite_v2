@@ -175,4 +175,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Redirect to home page
         window.location.href = 'index.html';
     });
-}); 
+
+//     // Add after the existing PIXI.js initialization
+//     document.addEventListener('mousemove', (e) => {
+//         const gradientBg = document.querySelector('.gradient-background');
+//         if (gradientBg) {
+//             const x = (e.clientX / window.innerWidth) * 100;
+//             const y = (e.clientY / window.innerHeight) * 100;
+//             gradientBg.style.setProperty('--mouse-x', `${x}%`);
+//             gradientBg.style.setProperty('--mouse-y', `${y}%`);
+//         }
+//     });
+ });

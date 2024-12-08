@@ -3,7 +3,8 @@
     display: flex;
     padding-top: 20px;
     min-height: 100vh;
-    background: linear-gradient(135deg, rgba(0, 13, 25, 0.95), rgba(0, 0, 0, 0.95));
+    position: relative;
+    z-index: 1;
     padding-left: 280px;
     opacity: 0;
     visibility: hidden;
@@ -422,32 +423,52 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: linear-gradient(
-        45deg,
-        rgba(0, 132, 255, 0.03),
-        rgba(0, 242, 254, 0.03),
-        rgba(68, 0, 255, 0.03)
-    );
-    filter: blur(100px);
-    background-size: 400% 400%;
-    animation: gradientAnimation 15s ease infinite;
-    z-index: -1;
+    z-index: 0;
     pointer-events: none;
+    overflow: hidden;
+}
+
+.gradient-background::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at center,
+        rgba(0, 132, 255, 0.03) 0%,
+        rgba(0, 242, 254, 0.02) 45%,
+        rgba(68, 0, 255, 0.01) 100%
+    );
+    filter: blur(60px);
+    opacity: 0.5;
+    animation: rotateGradient 20s linear infinite;
 }
 
 .gradient-background::after {
     content: '';
     position: absolute;
     inset: 0;
-    background: radial-gradient(
-        circle at 50% 50%,
-        rgba(0, 132, 255, 0.05),
-        transparent 70%
+    background: linear-gradient(
+        45deg,
+        rgba(0, 132, 255, 0.02),
+        rgba(0, 242, 254, 0.02),
+        rgba(68, 0, 255, 0.02)
     );
-    animation: glowPulse 8s ease-in-out infinite;
+    filter: blur(80px);
+    background-size: 200% 200%;
+    animation: gradientMove 15s ease infinite;
+    transform-origin: center;
 }
 
-@keyframes gradientAnimation {
+@keyframes rotateGradient {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes gradientMove {
     0% {
         background-position: 0% 50%;
     }
@@ -459,11 +480,9 @@
     }
 }
 
-@keyframes glowPulse {
-    0%, 100% {
-        opacity: 0.5;
-    }
-    50% {
-        opacity: 0.8;
-    }
+canvas {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
