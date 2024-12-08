@@ -5,9 +5,14 @@
     min-height: 100vh;
     background: linear-gradient(135deg, rgba(0, 13, 25, 0.95), rgba(0, 0, 0, 0.95));
     padding-left: 280px;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-out, visibility 0.6s;
+}
+
+.dashboard-layout.visible {
     opacity: 1;
-    transform: translateY(0);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    visibility: visible;
 }
 
 /* Sidebar */
@@ -285,20 +290,18 @@
     justify-content: center;
     align-items: center;
     z-index: 2000;
-    opacity: 1;
-    transition: opacity 0.8s ease-out;
 }
 
 .welcome-overlay.fade-out {
-    opacity: 0;
-    pointer-events: none;
+    opacity: 1;
+    animation: fadeOut 0.8s ease-out forwards;
 }
 
 .welcome-content {
     text-align: center;
-    transform: translateY(20px);
+    transform: translateY(30px);
     opacity: 0;
-    animation: welcomeFadeIn 0.8s ease-out forwards;
+    animation: welcomeContentIn 0.8s ease-out 0.3s forwards;
 }
 
 .welcome-content h1 {
@@ -308,16 +311,46 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
+    opacity: 0;
+    transform: scale(0.9);
+    animation: titleIn 0.6s ease-out 0.6s forwards;
 }
 
 .welcome-content p {
     color: rgba(255, 255, 255, 0.7);
     font-size: 1.2rem;
+    opacity: 0;
+    animation: fadeIn 0.6s ease-out 1s forwards;
 }
 
-@keyframes welcomeFadeIn {
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeOut {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes welcomeContentIn {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@keyframes titleIn {
+    to {
+        opacity: 1;
+        transform: scale(1);
     }
 }

@@ -9,10 +9,21 @@ document.addEventListener('DOMContentLoaded', () => {
     const username = sessionStorage.getItem('username');
     document.querySelector('.welcome-content .username').textContent = username;
 
-    // Handle welcome screen animation
+    // Enhanced welcome screen animation
     setTimeout(() => {
-        document.querySelector('.welcome-overlay').classList.add('fade-out');
-    }, 2000);
+        const welcomeOverlay = document.querySelector('.welcome-overlay');
+        const dashboardLayout = document.querySelector('.dashboard-layout');
+        
+        welcomeOverlay.classList.add('fade-out');
+        dashboardLayout.classList.add('visible');
+        
+        // Remove from DOM after animation completes
+        welcomeOverlay.addEventListener('animationend', (e) => {
+            if (e.animationName === 'fadeOut') {
+                welcomeOverlay.style.display = 'none';
+            }
+        });
+    }, 2500);
 
     // Initialize PIXI.js background
     const app = new PIXI.Application({
