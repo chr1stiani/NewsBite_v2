@@ -1,7 +1,7 @@
 /* Main Layout */
 .dashboard-layout {
     display: flex;
-    padding-top: 80px;
+    padding-top: 20px;
     min-height: 100vh;
     background: linear-gradient(135deg, rgba(0, 13, 25, 0.95), rgba(0, 0, 0, 0.95));
     padding-left: 280px;
@@ -21,7 +21,7 @@
     background: rgba(0, 26, 51, 0.4);
     backdrop-filter: blur(10px);
     border-right: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 2rem 0;
+    padding: 0rem 0;
     position: fixed;
     left: 0;
     top: 0;
@@ -31,9 +31,10 @@
 }
 
 .logo-container {
-    padding: 2rem;
-    margin-bottom: 2rem;
+    padding: 2rem 2rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
 }
 
 .logo-container .logo {
@@ -43,7 +44,7 @@
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.5rem;
 }
 
 .sidebar-menu {
@@ -77,9 +78,13 @@
 /* Main Content */
 .dashboard-content {
     flex: 1;
-    padding: 3rem 4rem;
-    max-width: 1400px;
+    padding: 2rem 4rem;
+    max-width: 1200px;
     margin: 0 auto;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 /* Header Styling */
@@ -130,11 +135,14 @@
 
 /* Input/Output Sections */
 .summarizer-container {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    margin-top: 3rem;
-    max-width: 1200px;
+    margin-top: 1rem;
+    max-width: 900px;
+    width: 100%;
 }
 
 .input-section-wrapper {
@@ -149,6 +157,13 @@
     border-radius: 20px;
     padding: 2rem;
     border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+
+    h3 {
+        margin-bottom: 1rem;
+    }
 }
 
 .instructions-section {
@@ -157,11 +172,31 @@
 }
 
 .instruction-card {
+    position: relative;
+    overflow: hidden;
     background: rgba(0, 26, 51, 0.4);
     border-radius: 20px;
     padding: 2rem;
     text-align: left;
     border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.instruction-card::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 132, 255, 0.05),
+        rgba(0, 242, 254, 0.05),
+        rgba(68, 0, 255, 0.05)
+    );
+    z-index: -1;
+    animation: gradientAnimation 20s linear infinite;
+    transform: translateZ(0);
 }
 
 .instruction-card i {
@@ -252,12 +287,13 @@
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
-    font-size: 1rem;
-    padding: 0.3rem 0.8rem;
-    border-radius: 8px;
+    font-size: 0.9rem;
+    padding: 0.2rem 0.6rem;
+    border-radius: 6px;
     position: relative;
     font-weight: 800;
     border: 1px solid rgba(0, 132, 255, 0.3);
+    margin-left: 0.5rem;
 }
 
 @keyframes shimmer {
@@ -352,5 +388,82 @@
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+/* Add similar effect to output-section */
+.output-section {
+    background: rgba(0, 26, 51, 0.4);
+    border-radius: 20px;
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+}
+
+
+/* Add floating gradient background */
+.gradient-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        45deg,
+        rgba(0, 132, 255, 0.03),
+        rgba(0, 242, 254, 0.03),
+        rgba(68, 0, 255, 0.03)
+    );
+    filter: blur(100px);
+    background-size: 400% 400%;
+    animation: gradientAnimation 15s ease infinite;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.gradient-background::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+        circle at 50% 50%,
+        rgba(0, 132, 255, 0.05),
+        transparent 70%
+    );
+    animation: glowPulse 8s ease-in-out infinite;
+}
+
+@keyframes gradientAnimation {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes glowPulse {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 0.8;
     }
 }
